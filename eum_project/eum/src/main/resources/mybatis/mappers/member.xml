@@ -1,0 +1,126 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="mapper.member">
+
+  <resultMap id="memResult" type="com.myspring.eum.member.vo.MemberVO">
+    <id     property="id"        column="id"/>
+    <result property="password"  column="password"/>
+    <result property="name"      column="name"/>
+    <result property="email"     column="email"/>
+    <result property="address"   column="address"/>
+    <result property="age"       column="age"/>
+    <result property="birth"     column="birth"/>
+    <result property="phone"     column="phone"/>
+    <result property="code"      column="code"/>
+    <result property="notes"     column="notes"/>
+    <result property="createdAt" column="created_at"/>
+    <result property="nickname"	 column="nickname"/>
+
+    <!-- ★ 프로필 이미지 매핑 추가 -->
+    <result property="profileImage"      column="profile_image"/>
+    <result property="profileImageOrig"  column="profile_image_orig"/>
+    <result property="profileImageType"  column="profile_image_type"/>
+    <result property="profileImageSize"  column="profile_image_size"/>
+    <result property="profileUpdatedAt"  column="profile_updated_at"/>
+  </resultMap>
+  
+  <!-- ✅ 회원가입 INSERT (그대로 사용: 프로필 컬럼은 NULL로 저장됨) -->
+  <insert id="insertMember" parameterType="com.myspring.eum.member.vo.MemberVO">
+    INSERT INTO member
+      (id, password, name, email, address, age, birth, phone, code, notes, role, status, created_at, updated_at)
+    VALUES
+      (#{id}, #{password}, #{name}, #{email}, #{address}, #{age}, #{birth},
+       #{phone}, #{code}, #{notes}, 'USER', 'ACTIVE', NOW(), NOW())
+  </insert>
+
+  <!-- ✅ 아이디 + 비밀번호로 로그인 -->
+  <!-- ★ resultType -> resultMap으로 변경해서 프로필 컬럼도 매핑되게 함 -->
+  <select id="loginById" parameterType="com.myspring.eum.member.vo.MemberVO"
+          resultMap="memResult">
+    SELECT *
+    FROM member
+    WHERE id = #{id}
+      AND password = #{password}
+      AND status = 'ACTIVE'
+    LIMIT 1
+  </select>
+
+  <select id="findById" parameterType="string" resultMap="memResult">
+    SELECT *
+    FROM member
+    WHERE id = #{id}
+    LIMIT 1
+  </select>
+
+  <select id="selectAllMemberList" resultMap="memResult">
+    SELECT *
+    FROM member
+    ORDER BY created_at DESC
+  </select>
+  
+  <!-- 내정보 수정 -->
+  <!-- ★ 이미지가 넘어온 경우에만 이미지 컬럼을 갱신하도록 <if> 추가 -->
+  <update id="updateProfile" parameterType="com.myspring.eum.member.vo.MemberVO">
+    UPDATE member
+       SET name       = #{name},
+           email      = #{email},
+           address    = #{address},
+           phone      = #{phone},
+           birth      = #{birth},
+           notes      = #{notes},
+           <!-- 이미지가 들어온 경우에만 업데이트 -->
+           <if test="profileImage != null and profileImage != ''">
+             profile_image       = #{profileImage},
+             profile_image_orig  = #{profileImageOrig},
+             profile_image_type  = #{profileImageType},
+             profile_image_size  = #{profileImageSize},
+             profile_updated_at  = NOW(),
+           </if>
+           updated_at = NOW()
+     WHERE id = #{id}
+  </update>
+
+  <!-- ★ 이미지 전용 업데이트(선택): 파일만 바꿀 때 사용 -->
+  <update id="updateProfileImage" parameterType="com.myspring.eum.member.vo.MemberVO">
+    UPDATE member
+       SET profile_image       = #{profileImage},
+           profile_image_orig  = #{profileImageOrig},
+           profile_image_type  = #{profileImageType},
+           profile_image_size  = #{profileImageSize},
+           profile_updated_at  = NOW(),
+           updated_at          = NOW()
+     WHERE id = #{id}
+  </update>
+
+  <!-- ★ 이미지 제거(선택): 삭제 버튼 등에서 사용 -->
+  <update id="clearProfileImage" parameterType="string">
+    UPDATE member
+       SET profile_image       = NULL,
+           profile_image_orig  = NULL,
+           profile_image_type  = NULL,
+           profile_image_size  = NULL,
+           profile_updated_at  = NOW(),
+           updated_at          = NOW()
+     WHERE id = #{id}
+  </update>
+
+  <!-- 현재 비밀번호 확인 -->
+  <select id="verifyPassword" parameterType="map" resultType="int">
+    SELECT COUNT(1)
+      FROM member
+     WHERE id = #{id}
+       AND password = #{password}
+  </select>
+
+  <!-- 비밀번호 변경 -->
+  <update id="updatePassword" parameterType="map">
+    UPDATE member
+       SET password  = #{password},
+           updated_at = NOW()
+     WHERE id = #{id}
+  </update>
+
+</mapper>

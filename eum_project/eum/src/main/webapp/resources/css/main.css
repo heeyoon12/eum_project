@@ -1,0 +1,160 @@
+/* =========================
+   SUIT 폰트
+   ========================= */
+@import url('https://cdn.jsdelivr.net/gh/sunn-us/SUIT/fonts/static/woff2/SUIT.css');
+
+/* 전역: 단색 바탕(경계 제거용) */
+html, body { background: #FFF8F2; }
+
+/* 탭바 높이(필요 시 조정) */
+:root{ --tabbar-h: 64px; }
+
+/* =========================
+   페이지 테마 변수 (.page-home)
+   ========================= */
+.page-home{
+  --bg:#FFF8F2; --text:#59463E; --muted:#806A5A;
+  --primary:#F6A96D; --primary-600:#e98c45;
+  --brand:#FFE8C2; --brand-200:#FADFCB;
+  --card:#FFFFFF; --card-br:#FFE1CB;
+  --hero-l:#FFEEE3; --hero-r:#FFF5E6;
+  --cta:#FFF0D5; --footer:#FFECD6;
+  --shadow: 0 8px 24px rgba(0, 0, 0, 0.08);
+  --shadow-soft: 0 4px 10px rgba(0, 0, 0, 0.06);
+  --radius: 20px; --maxw: 1100px;
+  --focus: 0 0 0 3px rgba(246,169,109,.35);
+
+  /* 섹션 간격 */
+  --section-gap: clamp(80px, 7vw, 110px);  /* 데스크톱/태블릿 */
+  --section-gap-sm: 52px;                  /* 모바일 */
+
+  /* 바탕 단색으로 통일 (경계 제거) */
+  background: var(--bg);
+  min-height: 100dvh;
+}
+
+/* =========================
+   섹션 간격
+   ========================= */
+.page-home section + section{ margin-top: var(--section-gap); }
+@media (max-width:600px){
+  .page-home section + section{ margin-top: var(--section-gap-sm); }
+}
+
+/* 레이아웃 유틸 */
+.page-home .container{
+  max-width: var(--maxw);
+  margin: 0 auto;
+  width: 100%;
+}
+
+/* 링크/포커스 */
+.page-home a{ color: inherit; text-decoration: none; }
+.page-home a:focus, .page-home button:focus{
+  outline: none; box-shadow: var(--focus); border-radius: 10px;
+}
+
+/* =========================
+   Hero
+   ========================= */
+.page-home .hero{
+  background: linear-gradient(90deg, var(--hero-l), var(--hero-r));
+  text-align: center;
+  border-bottom: 1px solid var(--brand-200);
+  border-radius: var(--radius);
+  border: 2px solid var(--card-br);   /* 요청: 테두리 */
+  box-shadow: var(--shadow-soft);     /* 요청: 은은한 그림자 */
+  margin-top: 12px;
+  padding: clamp(64px, 8vw, 96px) 0;
+}
+.page-home .hero h1{
+  font-family: 'SUIT', system-ui, -apple-system, Segoe UI, Roboto, sans-serif;
+  font-size: clamp(24px, 3vw, 34px);
+  font-weight: 700;
+  margin-bottom: 10px;
+}
+.page-home .hero p{
+  color: var(--muted);
+  margin-bottom: 18px;
+}
+.page-home .hero .cta{
+  background: #FFB88A; color: #fff; border: 0;
+  padding: 14px 22px; border-radius: 999px; font-weight: 700; cursor: pointer;
+}
+.page-home .hero .cta:hover{ background: #ffa06a; }
+
+/* =========================
+   특징(Feature)
+   ========================= */
+.page-home .feature-section{ padding: 44px 0; }
+.page-home .cards{ display: grid; gap: 24px; grid-template-columns: repeat(12, 1fr); }
+.page-home .feature-card{
+  grid-column: span 4; background: #fff; border: 2px solid var(--card-br);
+  border-radius: var(--radius); padding: 26px; text-align: center; box-shadow: var(--shadow-soft);
+}
+
+/* =========================
+   CTA 카드
+   ========================= */
+.page-home .cta-card{
+  background: var(--cta);
+  margin: 52px 0; padding: 32px;
+  border-radius: var(--radius); text-align: center;
+  border: 2px solid var(--card-br);   /* 요청: 테두리 */
+  box-shadow: var(--shadow-soft);
+}
+.page-home .auth-btn{
+  margin-top: 12px; background: var(--primary); color: #fff; border: 0;
+  padding: 12px 18px; border-radius: 999px; font-weight: 800; cursor: pointer;
+}
+.page-home .auth-btn:hover{ background: var(--primary-600); }
+
+/* =========================
+   최근 글
+   ========================= */
+.page-home .recent-posts{
+  display: grid; gap: 20px; grid-template-columns: repeat(12, 1fr); margin-bottom: 20px;
+}
+.page-home .post-card{
+  grid-column: span 4; background: #fff; border: 2px solid #FCE0CA;
+  border-radius: var(--radius); padding: 18px; box-shadow: var(--shadow-soft);
+}
+
+/* 스켈레톤 */
+.post-card.skeleton{
+  height: 96px; background: #f6f6f6; border: 2px solid #eee; border-radius: var(--radius);
+}
+
+/* =========================
+   반응형
+   ========================= */
+@media (max-width: 600px){
+  .page-home .feature-card, .page-home .post-card{ grid-column: span 12; }
+  .page-home .hero{ margin-top: 8px; padding: 52px 0; }
+  .page-home .feature-section{ padding: 38px 0; }
+  .page-home .cards{ gap: 18px; }
+  .page-home .cta-card{ margin: 44px 0; padding: 28px; }
+  .page-home .recent-posts{ gap: 16px; margin-bottom: 16px; }
+}
+
+/* =========================
+   푸터/탭바 가림 방지
+   ========================= */
+/* 푸터는 항상 위에 노출 */
+.site-footer{
+  position: relative;
+  z-index: 2;
+  /* iOS 홈바 안전영역만큼 패딩 추가 */
+  padding-bottom: max(16px, env(safe-area-inset-bottom));
+}
+
+/* 고정 탭바가 있다면, 콘텐츠 끝까지 스크롤되도록 바닥 여유 공간 확보 */
+@media (max-width: 900px){
+  .page-home{
+    padding-bottom: calc(var(--tabbar-h) + max(16px, env(safe-area-inset-bottom)));
+  }
+  /* 앵커 점프 시 탭바에 가리지 않게 */
+  :root{
+    scroll-padding-bottom: calc(var(--tabbar-h) + max(16px, env(safe-area-inset-bottom)));
+  }
+}

@@ -1,0 +1,194 @@
+/* 전체 페이지 기본 스타일 */
+body {
+    background-color: #FFFBF7; /* 메인 화면의 따뜻한 배경색 */
+    font-family: 'Noto Sans KR', sans-serif; /* 가독성 좋은 폰트 */
+    color: #333;
+    margin: 0;
+    padding: 0;
+}
+
+/* 게시글 전체를 감싸는 컨테이너 */
+.board-view {
+    max-width: 800px;
+    margin: 40px auto; /* 상하 여백 및 중앙 정렬 */
+    padding: 40px;
+    background-color: #ffffff; /* 흰색 배경으로 내용 강조 */
+    border-radius: 16px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05); /* 부드러운 그림자 효과 */
+}
+
+/* ===== 글 헤더 ===== */
+.article-hd {
+    margin-bottom: 24px;
+    padding-bottom: 24px;
+    border-bottom: 1px solid #eee; /* 구분선 */
+}
+
+.article-hd .title {
+    font-size: 28px;
+    font-weight: 600;
+    margin-top: 0;
+    margin-bottom: 16px;
+}
+
+/* '공지' 배지 스타일 */
+.article-hd .badge {
+    display: inline-block;
+    padding: 4px 8px;
+    font-size: 13px;
+    font-weight: bold;
+    color: white;
+    background-color: #ED9C63;
+    border-radius: 6px;
+    vertical-align: middle;
+    margin-left: 8px;
+}
+
+.article-hd .meta {
+    font-size: 14px;
+    color: #888;
+    margin: 0;
+}
+
+/* ===== 본문 ===== */
+.article-body {
+    font-size: 16px;
+    line-height: 1.7; /* 줄 간격으로 가독성 확보 */
+    min-height: 150px; /* 내용이 적어도 최소 높이 유지 */
+    margin-bottom: 40px;
+}
+
+hr {
+    border: 0;
+    border-top: 1px solid #eee;
+    margin: 40px 0;
+}
+
+/* ===== 지원하기 & 신청자 목록 공통 스타일 ===== */
+.apply-area h3,
+.applicants-area h3 {
+    font-size: 20px;
+    font-weight: 600;
+    margin-top: 0;
+    margin-bottom: 20px;
+    color: #444;
+}
+
+.apply-area, .applicants-area {
+    background-color: #FFF0E1; /* 메인 화면의 포인트 배경색 */
+    padding: 30px;
+    border-radius: 12px;
+}
+
+.muted {
+    color: #888;
+}
+
+
+/* ===== 지원하기 폼 ===== */
+.apply-form textarea {
+    width: 100%;
+    min-height: 100px;
+    padding: 15px;
+    font-size: 15px;
+    border: 1px solid #F0D5BE;
+    border-radius: 8px;
+    resize: vertical;
+    box-sizing: border-box;
+    margin-bottom: 20px;
+}
+
+.apply-form textarea:focus {
+    outline: none;
+    border-color: #ED9C63;
+    box-shadow: 0 0 0 2px rgba(237, 156, 99, 0.2);
+}
+
+.form-actions {
+    display: flex;
+    justify-content: flex-end; /* 버튼을 오른쪽으로 정렬 */
+    gap: 10px; /* 버튼 사이 간격 */
+}
+
+.form-actions .btn {
+    text-decoration: none;
+    display: inline-block;
+    text-align: center;
+}
+
+/* ===== 신청자 목록(작성자 전용) ===== */
+.applicant.card {
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 8px;
+    border: 1px solid #F0D5BE;
+    margin-bottom: 15px;
+}
+
+.applicant .row {
+    display: flex;
+    gap: 20px;
+    font-size: 14px;
+    color: #555;
+    margin-bottom: 15px;
+}
+
+.applicant .msg {
+    background-color: #f9f9f9;
+    padding: 15px;
+    border-radius: 6px;
+    font-size: 15px;
+    color: #333;
+    margin: 0 0 15px 0;
+    border: 1px solid #eee;
+}
+
+.applicant .actions {
+    text-align: right;
+}
+
+/* ===== 버튼 공통 스타일 ===== */
+.btn {
+    padding: 10px 20px;
+    font-size: 15px;
+    font-weight: 600;
+    border-radius: 8px;
+    border: 1px solid #ED9C63;
+    background-color: #fff;
+    color: #ED9C63;
+    cursor: pointer;
+    transition: all 0.2s ease-in-out;
+}
+
+.btn.primary {
+    background-color: #ED9C63;
+    color: white;
+    border: none;
+}
+
+.btn:hover {
+    opacity: 0.85;
+}
+
+/* 플래시 메시지 */
+.alert {
+    padding: 15px;
+    background-color: #FFF0E1;
+    color: #ED9C63;
+    border: 1px solid #F0D5BE;
+    border-radius: 8px;
+    margin-bottom: 20px;
+}
+
+/* sr-only: 스크린 리더에서는 읽히지만 화면에는 보이지 않음 */
+.sr-only {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+    border-width: 0;
+}

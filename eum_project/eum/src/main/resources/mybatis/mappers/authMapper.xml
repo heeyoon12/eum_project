@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="mapper.adminAuth">
+
+  <resultMap id="AdminMap" type="com.myspring.eum.admin.vo.AdminVO">
+    <id     property="id"        column="id"/>
+    <result property="password"  column="password"/>
+    <result property="name"      column="name"/>
+    <result property="email"     column="email"/>
+    <result property="address"   column="address"/>
+    <result property="age"       column="age"/>
+    <result property="birth"     column="birth"/>
+    <result property="phone"     column="phone"/>
+    <result property="code"      column="code"/>
+    <result property="notes"     column="notes"/>
+    <result property="createdAt" column="created_at"/>
+    <!-- (있다면) role / status 매핑도 추가
+    <result property="role"      column="role"/>
+    <result property="status"    column="status"/>
+    -->
+  </resultMap>
+
+  <!-- 관리자 단건 조회: AuthDAOImpl.findById() 가 호출 -->
+  <!-- admin 테이블을 쓰면 아래처럼, member 테이블에서 관리자면 role 조건 추가 -->
+  <select id="findById" parameterType="string" resultMap="AdminMap">
+  SELECT *
+  FROM member
+  WHERE id = #{id}
+    AND role = 'ADMIN'
+    AND status = 'ACTIVE'
+  LIMIT 1
+</select>
+
+  <!-- (선택) 별칭 메서드용 -->
+  <select id="findAdminById" parameterType="string" resultMap="AdminMap">
+  SELECT *
+  FROM member
+  WHERE id = #{id}
+    AND role = 'ADMIN'
+    AND status = 'ACTIVE'
+  LIMIT 1
+</select>
+
+</mapper>

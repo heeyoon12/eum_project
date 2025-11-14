@@ -1,0 +1,209 @@
+:root{
+  --bg:#FFF8F2;
+  --text:#59463E;
+  --muted:#806A5A;
+  --card:#FFFFFF;
+  --line:#EADBC8;
+  --accent:#FFB86C;
+  --accent-strong:#FF9E3D;
+  --chip:#FFF0D5;
+  --chip-br:#FFDDB9;
+  --shadow:0 8px 24px rgba(0,0,0,.08);
+  --shadow-soft:0 4px 10px rgba(0,0,0,.06);
+  --radius:20px;
+  --maxw:1100px;
+  --focus:0 0 0 3px rgba(246,169,109,.35);
+}
+
+html,body{
+  background:var(--bg);
+  color:var(--text);
+  font-family:"SUIT","Pretendard",system-ui,-apple-system,"Segoe UI",Roboto,"Noto Sans KR",Arial,sans-serif;
+  line-height:1.6;
+}
+
+/* ===== Wrapper ===== */
+.board-list{
+  max-width:var(--maxw);
+  margin: 16px auto 48px;
+  padding: 20px;
+  background: var(--card);
+  border: 2px solid #FFE1CB;
+  border-radius: var(--radius);
+  box-shadow: var(--shadow-soft);
+}
+
+/* ===== Filters bar (form.filters) ===== */
+.filters{
+  display:grid;
+  grid-template-columns: 1fr auto;
+  gap: 12px;
+  align-items:center;
+}
+
+@media (min-width: 780px){
+  .filters{ grid-template-columns: 1fr auto auto; }
+}
+
+.filters > *{
+  font-size: 15px;
+}
+
+.filters select,
+.filters input[type="text"]{
+  appearance:none;
+  border: 1px solid var(--line);
+  background: #FFF9F2;
+  border-radius: 12px;
+  padding: 10px 12px;
+  min-width: 150px;
+  outline: none;
+}
+
+.filters input[type="text"]{
+  min-width: 220px;
+}
+
+.filters .btn{
+  justify-self: end;
+}
+
+.sr-only{
+  position:absolute !important;
+  left:-9999px !important;
+  top:auto !important;
+  width:1px !important; height:1px !important; overflow:hidden !important;
+}
+
+/* ===== Buttons ===== */
+.btn{
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  gap:8px;
+  padding: 10px 16px;
+  border-radius: 14px;
+  border: 1px solid var(--line);
+  background: #fff;
+  font-weight: 800;
+  cursor: pointer;
+  text-decoration: none;
+  transition: transform .12s ease, box-shadow .12s ease, background .12s ease;
+  box-shadow: var(--shadow-soft);
+}
+.btn:hover{ transform: translateY(-1px); }
+.btn:focus{ outline: none; box-shadow: var(--focus), var(--shadow-soft); }
+.btn.primary{
+  background: var(--accent);
+  border-color: transparent;
+  color: #3a240b;
+}
+.btn.primary:hover{ background: var(--accent-strong); color:#fff; }
+
+/* ===== Divider ===== */
+.board-list > hr{
+  border:0;
+  border-top:1px solid var(--line);
+  margin: 14px 0 10px;
+}
+
+/* ===== Articles (UL -> card rows) ===== */
+.articles{
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: grid;
+  gap: 12px;
+}
+
+.item{
+  position: relative;
+  background: #fff;
+  border: 1px solid var(--line);
+  border-radius: 16px;
+  padding: 14px 16px;
+  box-shadow: var(--shadow-soft);
+  transition: transform .12s ease, box-shadow .12s ease, background .12s ease;
+}
+.item:hover{
+  transform: translateY(-2px);
+  box-shadow: 0 12px 28px rgba(0,0,0,.12);
+  background: #FFFDF9;
+}
+
+/* Notice badge */
+.badge{
+  position: absolute;
+  top: 12px;
+  right: 12px;
+  padding: 6px 10px;
+  border-radius: 999px;
+  background: #FFE5E5;
+  border: 1px solid #FFC2C4;
+  color: #B42318;
+  font-weight: 800;
+  font-size: 12px;
+  line-height: 1;
+}
+
+/* Title link */
+.title{
+  display: inline-block;
+  font-weight: 800;
+  font-size: 16px;
+  color: inherit;
+  text-decoration: none;
+  padding-right: 84px; /* space for badge */
+}
+.title:hover{ text-decoration: underline; }
+.title:focus{ outline: none; box-shadow: var(--focus); border-radius: 8px; }
+
+/* Meta line */
+.meta{
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px 10px;
+  margin-top: 8px;
+  color: var(--muted);
+  font-size: 13px;
+}
+.chip{
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 6px 10px;
+  background: var(--chip);
+  border: 1px solid var(--chip-br);
+  border-radius: 999px;
+  color: var(--text);
+}
+.time{
+  margin-left: auto;
+  font-size: 12px;
+  color: var(--muted);
+}
+
+/* ===== Write button box ===== */
+.write-btn-box{
+  display: flex;
+  justify-content: center;   /* 기본: 가운데 정렬 */
+  margin-top: 20px;
+}
+
+/* ===== Responsive tweaks ===== */
+@media (max-width: 680px){
+  .filters{
+    grid-template-columns: 1fr;
+  }
+  .filters .btn{ justify-self: start; }
+  .time{ margin-left: 0; width: 100%; order: 3; }
+  .title{ display:block; }
+}
+
+/* ===== Empty state ===== */
+.muted{ color: var(--muted); padding: 12px 4px; }
+
+/* ===== Motion preference ===== */
+@media (prefers-reduced-motion: reduce){
+  *{ transition:none !important; animation:none !important; }
+}
